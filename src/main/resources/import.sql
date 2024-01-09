@@ -1,0 +1,2 @@
+INSERT INTO pizzas (`name`, description, photo, price) VALUES('Margherita', 'mozzarella,pomodoro', 'https://www.finedininglovers.it/sites/g/files/xknfdk1106/files/fdl_content_import_it/margherita-50kalo.jpg', 5);
+INSERT INTO pizzas (`name`, description, photo, price) VALUES('Marinara', 'pomodoro,origano', 'https://img.delicious.com.au/qRrzAHSr/del/2019/03/marinara-pizza-102752-2.jpg', 4);
