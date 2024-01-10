@@ -28,15 +28,15 @@ public class PizzaController {
         return "pizzas/list";
     }
 
-    @GetMapping("/show/{name}")
-    public String show(@PathVariable String name, Model model) {
-        Optional<Pizza> result = pizzeriaRepository.findById(name);
+    @GetMapping("/show/{id}")
+    public String show(@PathVariable Integer id, Model model) {
+        Optional<Pizza> result = pizzeriaRepository.findById(id);
         if (result.isPresent()) {
             Pizza pizza = result.get();
             model.addAttribute("pizza", pizza);
             return "pizzas/show";
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza " + name + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza " + id + " not found");
         }
 
     }
@@ -54,7 +54,7 @@ public class PizzaController {
             return "pizzas/newPizza";
         } else {
             Pizza savePizza = pizzeriaRepository.save(formPizza);
-            return "redirect:/pizzas/list/" + savePizza.getName();
+            return "redirect:/pizzas";
         }
 
     }
