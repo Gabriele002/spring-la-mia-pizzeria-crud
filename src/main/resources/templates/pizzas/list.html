@@ -31,12 +31,16 @@
                 <tr th:each="pizza: ${pizzaList}">
                     <td th:text="${pizza.name}"></td>
                     <td th:text="| ${pizza.price} $|"></td>
-                    <td><a class="btn btn-primary" th:href="@{/pizzas/show/{id}(id=${pizza.id})}" role="button"> Details </a>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/pizzas/show/{id}(id=${pizza.id})}" role="button"> Details </a>
+                        <a class="btn btn-primary" th:href="@{/pizzas/editPizza/{id}(id=${pizza.id})}" role="button"> Edit pizza </a>
                     </td>
+
                 </tr>
                 </tbody>
             </table>
             <a class="btn btn-primary" th:href="@{/pizzas/newPizza}">Add Pizza</a>
+
         </div>
     </div>
 </div>

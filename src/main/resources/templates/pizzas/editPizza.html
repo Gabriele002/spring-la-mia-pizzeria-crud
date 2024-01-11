@@ -9,17 +9,18 @@
           rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
           crossorigin="anonymous">
-    <title>Add Pizza</title>
+    <title>Edit Pizza</title>
 </head>
 <body>
 <div class="container">
-    <h1>Add new pizza</h1>
+    <h1>Edit pizza</h1>
     <hr>
+    <!-- form mappato sull'oggetto book -->
     <form
-            id="create-pizza"
+            id="edit-pizza"
             method="post"
             th:object="${pizza}"
-            th:action="@{/pizzas/newPizza}"
+            th:action="@{/pizzas/editPizza/{id}(id=${pizza.id})}"
             class="row gy-3"
     >
         <div class="col-6">

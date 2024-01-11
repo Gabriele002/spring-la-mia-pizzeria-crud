@@ -23,8 +23,8 @@ public class Pizza {
     @Lob
     private String photo;
     @Column(nullable = false)
-    @Min(value = 0)
-    @NotNull
+    @Min(value = 1)
+    @NotNull(message = "The price must be greater than 1")
     private BigDecimal price;
 
     public String getName() {
