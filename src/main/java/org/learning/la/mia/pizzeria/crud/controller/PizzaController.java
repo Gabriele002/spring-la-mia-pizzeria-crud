@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -72,16 +73,30 @@ public class PizzaController {
 
     @PostMapping("/editPizza/{id}")
     public String updatepizza (@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza,  BindingResult bindingResult ) {
-        Optional<Pizza> pizza = pizzeriaRepository.findById(id);
+        Optional<Pizza> pizza = pizzeriaRepository.findById(formPizza.getId());
         if (pizza.isPresent()) {
             Pizza pizzaedit = pizza.get();
             if (bindingResult.hasErrors()) {
                 return "pizzas/editPizza";
             }
+            formPizza.setPhoto(pizzaedit.getPhoto());
             Pizza savedpizza = pizzeriaRepository.save(formPizza);
             return "redirect:/pizzas";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
         }
     }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes){
+        Optional<Pizza> result = pizzeriaRepository.findById(id);
+        if (result.isPresent()){
+            pizzeriaRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("redirectMessage","Pizza" + result.get().getName() + "deleted!");
+            return "redirect:/pizzas";
+        } else {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
+        }
+    }
+
 }

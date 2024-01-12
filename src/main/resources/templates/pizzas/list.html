@@ -16,6 +16,13 @@
 <body>
 <h1 class="text-danger">Pizza List </h1>
 <div class="container">
+
+    <div th:if="${redirectMessage !=null} " class="alert alert-success" role="alert">
+        <div th:text="${redirectMessage}"></div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
     <div class="row">
         <div class="col-md-12">
             <table class="table table-bordered">
@@ -31,9 +38,15 @@
                 <tr th:each="pizza: ${pizzaList}">
                     <td th:text="${pizza.name}"></td>
                     <td th:text="| ${pizza.price} $|"></td>
-                    <td>
+                    <td class="d-flex justify-content-between">
                         <a class="btn btn-primary" th:href="@{/pizzas/show/{id}(id=${pizza.id})}" role="button"> Details </a>
                         <a class="btn btn-primary" th:href="@{/pizzas/editPizza/{id}(id=${pizza.id})}" role="button"> Edit pizza </a>
+                        <form
+                        th:action="@{/pizzas/delete/{id}(id=${pizza.id})}"
+                            method="post"
+                        onsubmit="return confirm('Are you sure?')">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
                     </td>
 
                 </tr>
